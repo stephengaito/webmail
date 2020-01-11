@@ -7,6 +7,7 @@ package main
 import (
 	"bytes"
 	"context"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -25,6 +26,8 @@ var (
 	// The secure-cookie object we use.
 	//
 	cookieHandler *securecookie.SecureCookie
+	port          = flag.Int("server-port", 8080, "Server listen port")
+	host          = flag.String("server-host", "127.0.0.1", "Server listen host")
 )
 
 // key is the type for a context-key
@@ -43,6 +46,10 @@ const (
 	// keyPass stores the password
 	keyPass key = iota
 )
+
+func init() {
+	flag.Parse()
+}
 
 // LoadCookie loads the persistent cookies from disc, if they exist.
 func LoadCookie() {
@@ -785,10 +792,8 @@ func main() {
 	//
 	// Show what we're going to bind upon.
 	//
-	bindHost := "127.0.0.1"
-	bindPort := 8080
 
-	bind := fmt.Sprintf("%s:%d", bindHost, bindPort)
+	bind := fmt.Sprintf("%s:%d", *host, *port)
 	fmt.Printf("Listening on http://%s/\n", bind)
 
 	//
