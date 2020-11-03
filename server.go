@@ -26,7 +26,7 @@ var (
 	// The secure-cookie object we use.
 	//
 	cookieHandler *securecookie.SecureCookie
-	port          = flag.Int("server-port", 8080, "Server listen port")
+	port          = flag.Int("server-port", 8089, "Server listen port")
 	host          = flag.String("server-host", "127.0.0.1", "Server listen host")
 )
 
